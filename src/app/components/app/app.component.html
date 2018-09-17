@@ -1,0 +1,54 @@
+<div class="container-fluid page_box h21-theme">
+	<ng-container *ngIf="!isLogin">
+		<div class="page_splash-screen"
+			 [@splashScreenVisibility]="animationState"
+			 (@splashScreenVisibility.start)="onAnimationStart($event)"
+			 (@splashScreenVisibility.done)="onAnimationDone($event)">&nbsp;</div>
+		<div class="page_login-form-box"
+			 [@loginFormVisibility]="animationState"
+			 (@loginFormVisibility.start)="onAnimationStart($event)"
+			 (@loginFormVisibility.done)="onAnimationDone($event)">
+			<div class="page_login-form">
+				<img src="./assets/img/logo-2.svg" alt="" class="mb-3" />
+				<mat-form-field class="__w-100">
+					<input matInput placeholder="Login">
+				</mat-form-field>
+				<mat-form-field class="__w-100 mb-3">
+					<input matInput placeholder="Password">
+				</mat-form-field>
+				<button mat-raised-button color="primary" class="__w-100" (click)="login()">Sign in</button>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="isLogin">
+		<div class="container-fluid page_box h21-theme"> 
+			<div class="row no-gutters page_header-box">
+				<div class="col-12 no-gutters">
+					<h21-header [username]="'Horse B.V. | Serhey Strovatikov'"
+								[logotypeUrl]="'./assets/img/logo.svg'"></h21-header>
+					<h21-top-toolbar [showSidenavToggle]="false"
+									 [showCart]="false"
+									 [showLanguageControl]="false"
+									 [showCurrencyControl]="false"></h21-top-toolbar>
+				</div>
+			</div>
+			<div class="row no-gutters page_content-box">
+				<div class="col-12 no-gutters __has-sidebar">
+					<h21-sidebar-nav [selected]="sidebarNavActiveTab"
+									 [disabled]="sidebarNavDisabled"
+									 [(tabs)]="sidebarNavTabs"
+									 (onChanged)="sidebarNavAction($event)"></h21-sidebar-nav>
+					<div class="page_content">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</div>
+
+
+
+
+
