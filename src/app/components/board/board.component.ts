@@ -1,4 +1,5 @@
 import { Component } from "@angular/core"
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'board',
@@ -6,5 +7,7 @@ import { Component } from "@angular/core"
 })
 
 export class BoardComponent {
+	constructor(private _router: Router,) {
 
+	}
 }

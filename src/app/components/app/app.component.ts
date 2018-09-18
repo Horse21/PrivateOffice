@@ -71,16 +71,20 @@ export class AppComponent {
 		location.reload();
 	}
 
+
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
-	isLogin: boolean = false;
+	isLogin: boolean =  true;
 
+	ngOnInit() {
+		console.log('test');
+	}
 
 	sidebarNavAction(tab: ISidebarNavTab): void {
 		this.sidebarNavActiveTab = tab.name;
-		//this._router.navigateByUrl(`./${tab.url}`);
-		//console.log(`./${tab.url}`);
+		// this._router.navigateByUrl(`./${tab.url}`);
+		// console.log(`./${tab.url}`);
 	}
 
 	isRoute(route: string) {

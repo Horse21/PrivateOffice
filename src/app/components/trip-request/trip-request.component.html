@@ -1,3 +1,24 @@
 <div class="c-trip-request">
-
+	<h2>{{title}}</h2>
+	<div class="c-trip-request_form-wrapper">
+		<mat-form-field class="__w-100">
+			<input type="text" matInput placeholder="Name traveler" required />
+		</mat-form-field>
+		<mat-form-field class="__w-100">
+			<input type="text" matInput placeholder="Destination" required />
+		</mat-form-field>
+		<mat-form-field class="__w-100">
+			<input type="text" matInput placeholder="Arrival date" />
+		</mat-form-field>
+		<mat-form-field class="__w-100">
+			<input type="text" matInput placeholder="Departure date" />
+		</mat-form-field>
+		<mat-form-field class="__w-100">
+			<textarea matInput placeholder="Extras" rows="3"></textarea>
+		</mat-form-field>
+		<h21-two-month-calendar></h21-two-month-calendar>
+		<div class="__text-right">
+			<button mat-raised-button color="primary">Submit</button>
+		</div>
+	</div>
 </div>

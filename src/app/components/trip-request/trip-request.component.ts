@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component } from "@angular/core";
 
 @Component({
 	selector: 'trip-request',
@@ -6,5 +6,7 @@ import { Component } from "@angular/core"
 })
 
 export class TripRequestComponent {
+
+	title = 'Trip request';
 
 }

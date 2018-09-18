@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NouisliderModule} from 'ng2-nouislider';
 import {PrototypePermissionService} from '../app/services/prototype-permission-service';
 import {PrototypeVocabularyService} from '../app/services/prototype-vocabulary-service';
 import {MatInputModule, MatNativeDateModule} from '@angular/material';
@@ -16,6 +15,7 @@ import {
 	H21HeaderModule,
 	H21TopToolbarModule,
 	H21SidebarNavModule,
+	H21TwoMonthCalendarModule,
 } from 'h21-be-ui-kit';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -56,6 +56,7 @@ const routes: Routes = [
 			H21HeaderModule,
 			H21TopToolbarModule,
 			H21SidebarNavModule,
+			H21TwoMonthCalendarModule,
 		],
 		providers: [
 			{

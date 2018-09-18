@@ -1,0 +1,72 @@
+[
+	{
+		"countryCode" : "AT",
+		"flagUrl" : "./assets/flags/at.svg",
+		"phoneNumber" : "0 800 291 753"
+	},
+	{
+		"countryCode" : "AU",
+		"flagUrl" : "./assets/flags/au.svg",
+		"phoneNumber" : "1 800 584 228"
+	},
+	{
+		"countryCode" : "BE",
+		"flagUrl" : "./assets/flags/be.svg",
+		"phoneNumber" : "0 800 74791"
+	},
+	{
+		"countryCode" : "CA",
+		"flagUrl" : "./assets/flags/ca.svg",
+		"phoneNumber" : "1 888 745 72 95"
+	},
+	{
+		"countryCode" : "CZ",
+		"flagUrl" : "./assets/flags/cz.svg",
+		"phoneNumber" : "800 142 415"
+	},
+	{
+		"countryCode" : "ES",
+		"flagUrl" : "./assets/flags/es.svg",
+		"phoneNumber" : "900 984 987"
+	},
+	{
+		"countryCode" : "FR",
+		"flagUrl" : "./assets/flags/fr.svg",
+		"phoneNumber" : "0 800 915 006"
+	},
+	{
+		"countryCode" : "LU",
+		"flagUrl" : "./assets/flags/lu.svg",
+		"phoneNumber" : "800 26467"
+	},
+	{
+		"countryCode" : "NL",
+		"flagUrl" : "./assets/flags/nl.svg",
+		"phoneNumber" : "0206711913"
+	},
+	{
+		"countryCode" : "PL",
+		"flagUrl" : "./assets/flags/pl.svg",
+		"phoneNumber" : "00800 491 1692"
+	},
+	{
+		"countryCode" : "RU",
+		"flagUrl" : "./assets/flags/ru.svg",
+		"phoneNumber" : "7 495 664 23 71"
+	},
+	{
+		"countryCode" : "UK",
+		"flagUrl" : "./assets/flags/gb.svg",
+		"phoneNumber" : "0 808 101 15 46"
+	},
+	{
+		"countryCode" : "US",
+		"flagUrl" : "./assets/flags/us.svg",
+		"phoneNumber" : "1 888 745 72 95"
+	},
+	{
+		"countryCode" : "ZA",
+		"flagUrl" : "./assets/flags/za.svg",
+		"phoneNumber" : "0 800 984 130"
+	}
+]
