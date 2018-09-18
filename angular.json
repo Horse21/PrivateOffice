@@ -23,7 +23,6 @@
 						],
 						"styles": [
 							"node_modules/normalize.css/normalize.css",
-							"node_modules/h21-be-ui-kit/h21-theme.scss",
 							"src/styles.scss",
 							"src/styles.css"
 						],

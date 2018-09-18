@@ -1,24 +1,40 @@
 <div class="c-trip-request">
-	<h2>{{title}}</h2>
+	<h2 class="po_title">{{title}}</h2>
+
 	<div class="c-trip-request_form-wrapper">
-		<mat-form-field class="__w-100">
-			<input type="text" matInput placeholder="Name traveler" required />
+		<mat-form-field class="po_form-field">
+			<input type="text" matInput placeholder="Name traveler" [formControl]="travelerNameControl" required />
+			<mat-error *ngIf="travelerNameControl.hasError('required')">You must enter a value</mat-error>
 		</mat-form-field>
-		<mat-form-field class="__w-100">
-			<input type="text" matInput placeholder="Destination" required />
+
+		<mat-form-field class="po_form-field">
+			<input type="text" matInput placeholder="Destination" [formControl]="destinationControl" required />
+			<mat-error *ngIf="destinationControl.hasError('required')">You must enter a value</mat-error>
 		</mat-form-field>
-		<mat-form-field class="__w-100">
-			<input type="text" matInput placeholder="Arrival date" />
-		</mat-form-field>
-		<mat-form-field class="__w-100">
-			<input type="text" matInput placeholder="Departure date" />
-		</mat-form-field>
-		<mat-form-field class="__w-100">
+
+		<h21-two-month-calendar [fromDateText]="'Arrival'"
+								[toDateText]="'Departure'"
+								[suffixText]="'date'"
+								[selectedFromDate]="arrivalDate"
+								[selectedToDate]="departureDate"
+								(onSelectedFromDateChanged)="changeArrivalDate($event);"
+								(onSelectedToDateChanged)="changeDepartureDate($event);"></h21-two-month-calendar>
+
+		<!--<mat-form-field class="po_form-field">-->
+			<!--<input type="text" matInput placeholder="Arrival date" />-->
+		<!--</mat-form-field>-->
+
+		<!--<mat-form-field class="po_form-field">-->
+			<!--<input type="text" matInput placeholder="Departure date" />-->
+		<!--</mat-form-field>-->
+
+		<mat-form-field class="po_form-field">
 			<textarea matInput placeholder="Extras" rows="3"></textarea>
 		</mat-form-field>
-		<h21-two-month-calendar></h21-two-month-calendar>
+
 		<div class="__text-right">
 			<button mat-raised-button color="primary">Submit</button>
 		</div>
 	</div>
+
 </div>

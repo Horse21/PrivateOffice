@@ -1,109 +1,98 @@
 <div class="c-profile">
-	<mat-card class="c-h21-profile-user-card">
-		<div class="c-h21-profile-user-card_header">
-			<mat-card-title class="c-h21-profile-user-card_title">{{entity.firstName}} {{entity.lastName}}</mat-card-title>
+	<mat-card class="c-profile_card">
+		<div class="c-profile_card-header">
+			<h2 class="po_title">Sergey Strovatikov</h2>
 			<mat-card-header>
-				<img mat-card-avatar src="https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png" alt=""/>
-				<div class="c-h21-profile-user-card_meta-data-box">
+				<img mat-card-avatar [src]="profileData.pictureUrl" alt=""/>
+				<div class="c-profile_meta-data-box">
 					<div class="row">
 						<div class="col-12 col-xl-6">
-							<div class="row no-gutters c-h21-profile-user-card_meta-data-item">
+							<div class="row no-gutters c-profile_meta-data">
 								<div class="col-6">Date of registration</div>
-								<div class="col-6"><b></b></div>
+								<div class="col-6"><b>{{profileData.registrationDate}}</b></div>
 							</div>
 						</div>
 						<div class="col-12 col-xl-6">
-							<div class="row no-gutters c-h21-profile-user-card_meta-data-item">
+							<div class="row no-gutters c-profile_meta-data">
 								<div class="col-6 col-xl-4">Identity user ID:</div>
-								<div class="col-6 col-xl-8"><b></b></div>
+								<div class="col-6 col-xl-8">{{profileData.identityUserId}}<b></b></div>
 							</div>
 						</div>
 						<div class="col-12 col-xl-6">
-							<div class="row no-gutters c-h21-profile-user-card_meta-data-item">
+							<div class="row no-gutters c-profile_meta-data">
 								<div class="col-6">Date of update</div>
-								<div class="col-6"><b></b></div>
+								<div class="col-6"><b>{{profileData.updateDate}}</b></div>
 							</div>
 						</div>
 						<div class="col-12 col-xl-6">
-							<div class="row no-gutters c-h21-profile-user-card_meta-data-item">
+							<div class="row no-gutters c-profile_meta-data">
 								<div class="col-6 col-xl-4">Status</div>
-								<div class="col-6 col-xl-8"><b></b></div>
+								<div class="col-6 col-xl-8">{{profileData.status}}<b></b></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</mat-card-header>
 		</div>
-
 		<mat-card-content>
-			<h4 class="c-h21-profile-user-card_title">General info</h4>
+			<h4 class="po_title">General info</h4>
 			<div class="row">
 				<div class="col-6">
-
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="First Name" readonly="true" [value]="profileData.firstName">
+						<span matSuffix class="po_required-suffix">*</span>
+					</mat-form-field>
 				</div>
 				<div class="col-6">
-
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Last Name" readonly="true" [value]="profileData.lastName">
+						<span matSuffix class="po_required-suffix">*</span>
+					</mat-form-field>
 				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Middle Name" readonly="true" [value]="profileData.middleName">
+					</mat-form-field>
+				</div>
+				<div class="col-6">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Company name" readonly="true" [value]="profileData.companyName">
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Function" readonly="true" [value]="profileData.function">
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Email" readonly="true" [value]="profileData.email">
+						<span matSuffix class="po_required-suffix">*</span>
+					</mat-form-field>
+				</div>
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Password" readonly="true" [value]="profileData.password">
+						<span matSuffix class="po_required-suffix">*</span>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<mat-form-field class="po_form-field">
+						<input matInput placeholder="Phone" readonly="true" [value]="profileData.phone">
+						<span matSuffix class="po_required-suffix">*</span>
+					</mat-form-field>
+				</div>
+				<div class="col-6">&nbsp;</div>
 			</div>
 		</mat-card-content>
 	</mat-card>
 </div>
-
-
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Email" [readonly]="!editable" [(ngModel)]="entity.email" required>-->
-	<!--<span matSuffix class="c-h21-profile-user-card_required" *ngIf="!validator.invalid('entity.email')">*</span>-->
-	<!--<mat-icon matSuffix *ngIf="validator.invalid('entity.email')" color="warn">error</mat-icon>-->
-	<!--<mat-error *ngIf="validator.invalid('entity.email')">{{validator.invalid('entity.email')}}</mat-error>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="First name" [readonly]="!editable" [(ngModel)]="entity.firstName" required>-->
-	<!--<span matSuffix class="c-h21-profile-user-card_required" *ngIf="!validator.invalid('entity.firstName')">*</span>-->
-	<!--<mat-icon matSuffix *ngIf="validator.invalid('entity.firstName')" color="warn">error</mat-icon>-->
-	<!--<mat-error *ngIf="validator.invalid('entity.firstName')">{{validator.invalid('entity.firstName')}}</mat-error>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Last name" [readonly]="!editable" [(ngModel)]="entity.lastName" required>-->
-	<!--<span matSuffix class="c-h21-profile-user-card_required" *ngIf="!validator.invalid('entity.lastName')">*</span>-->
-	<!--<mat-icon matSuffix *ngIf="validator.invalid('entity.lastName')" color="warn">error</mat-icon>-->
-	<!--<mat-error *ngIf="validator.invalid('entity.lastName')">{{validator.invalid('entity.lastName')}}</mat-error>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Middle name" [readonly]="!editable" [(ngModel)]="entity.middleName">-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<mat-select placeholder="Gender" [disabled]="!editable" [(ngModel)]="entity.gender">-->
-		<!--<mat-option value="true">Male</mat-option>-->
-		<!--<mat-option value="false">Female</mat-option>-->
-	<!--</mat-select>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Birth day" [matDatepicker]="picker" [readonly]="!editable" value="'01/01/1980'">-->
-	<!--<mat-datepicker-toggle matSuffix [for]="picker" class="c-h21-profile-user-card_datepicker-icon" [disabled]="!editable"></mat-datepicker-toggle>-->
-	<!--<mat-datepicker #picker></mat-datepicker>-->
-<!--</mat-form-field>-->
-
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<mat-select [(value)]="entity.countryCode" (selectionChange)="countrySelected()" placeholder="Country" >-->
-		<!--<mat-option *ngFor="let country of countriesData" [value]="country.code">{{country.name}}</mat-option>-->
-	<!--</mat-select>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable || !entity.countryCode">-->
-	<!--<mat-select [(value)]="entity.cityCode" placeholder="City">-->
-		<!--<mat-option *ngFor="let city of citiesData" [value]="city.code">{{city.name}}</mat-option>-->
-	<!--</mat-select>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Code" [readonly]="!editable" [(ngModel)]="entity.code">-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="Phone" [readonly]="!editable" [(ngModel)]="entity.phone">-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<mat-select placeholder="Language" [disabled]="!editable" [(ngModel)]="entity.languageCode">-->
-		<!--<mat-option *ngFor="let language of languages" [value]="language.code">{{language.name}}</mat-option>-->
-	<!--</mat-select>-->
-<!--</mat-form-field>-->
-<!--<mat-form-field class="c-h21-profile-user-card_form-field" [class.__is-readonly]="!editable">-->
-	<!--<input matInput placeholder="More information" [readonly]="!editable" [(ngModel)]="entity.description">-->
-<!--</mat-form-field>-->

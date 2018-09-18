@@ -78,7 +78,7 @@ export class AppComponent {
 	isLogin: boolean =  true;
 
 	ngOnInit() {
-		console.log('test');
+
 	}
 
 	sidebarNavAction(tab: ISidebarNavTab): void {
