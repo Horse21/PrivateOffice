@@ -1,28 +1,45 @@
 <div class="container-fluid page_box h21-theme">
-	<ng-container *ngIf="!isLogin">
-		<div class="page_splash-screen"
-			 [@splashScreenVisibility]="animationState"
-			 (@splashScreenVisibility.start)="onAnimationStart($event)"
-			 (@splashScreenVisibility.done)="onAnimationDone($event)">&nbsp;</div>
-		<div class="page_login-form-box"
-			 [@loginFormVisibility]="animationState"
-			 (@loginFormVisibility.start)="onAnimationStart($event)"
-			 (@loginFormVisibility.done)="onAnimationDone($event)">
-			<div class="page_login-form">
-				<img src="./assets/img/logo-2.svg" alt="" class="mb-3" />
-				<mat-form-field class="__w-100">
-					<input matInput placeholder="Login">
-				</mat-form-field>
-				<mat-form-field class="__w-100 mb-3">
-					<input matInput placeholder="Password">
-				</mat-form-field>
-				<button mat-raised-button color="primary" class="__w-100" (click)="login()">Sign in</button>
+
+	<ng-template #loginErrorTpl>
+		<button mat-icon-button (click)="closeSnackBar()">
+			<mat-icon>close</mat-icon>
+		</button>
+		<span>Incorrect login or password!</span>
+	</ng-template>
+
+	<ng-container *ngIf="loginFormVisibility">
+		<div class="po_login-box">
+			<div class="po_splash-screen"
+				 [@splashScreenVisibility]="animationState"
+				 (@splashScreenVisibility.start)="onAnimationStart($event)"
+				 (@splashScreenVisibility.done)="onAnimationDone($event)">&nbsp;</div>
+			<div class="po_login-form-box"
+				 [@loginFormVisibility]="animationState">
+				<div class="po_login-form">
+					<img src="./assets/img/logo-2.svg" alt="" class="po_logo" />
+					<div class="po_login-form-fileds">
+						<mat-form-field class="__w-100">
+							<input type="text" matInput placeholder="Login" [formControl]="loginControl">
+							<mat-error *ngIf="loginControl.hasError('required')">You must enter a value</mat-error>
+						</mat-form-field>
+						<mat-form-field class="__w-100">
+							<input [type]="passwordVisibility" matInput placeholder="Password" [formControl]="passwordControl">
+							<button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+								<mat-icon color="primary" *ngIf="passwordVisibility == 'text'">visibility</mat-icon>
+								<mat-icon *ngIf="passwordVisibility == 'password'">visibility_off</mat-icon>
+							</button>
+							<mat-error *ngIf="passwordControl.hasError('required')">You must enter a value</mat-error>
+						</mat-form-field>
+					</div>
+					<button mat-raised-button color="primary" class="__w-100" (click)="login()">Sign in</button>
+				</div>
 			</div>
 		</div>
 	</ng-container>
 
-	<ng-container *ngIf="isLogin">
-		<div class="container-fluid page_box h21-theme">
+	<ng-container *ngIf="contentVisibility">
+		<div class="container-fluid page_box h21-theme"
+			 [@mainContentVisibility]="'enter'">
 			<div class="row no-gutters page_header-box">
 				<div class="col-12 no-gutters">
 					<h21-header [username]="userName"

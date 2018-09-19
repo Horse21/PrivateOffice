@@ -4,7 +4,7 @@
 	<div class="c-trip-request_form-wrapper">
 		<mat-form-field class="po_form-field">
 			<input type="text" matInput placeholder="Name traveler" [formControl]="travelerNameControl" required />
-			<mat-error *ngIf="travelerNameControl.hasError('required')">You must enter a value</mat-error>
+				<mat-error *ngIf="travelerNameControl.hasError('required')">You must enter a value</mat-error>
 		</mat-form-field>
 
 		<mat-form-field class="po_form-field">

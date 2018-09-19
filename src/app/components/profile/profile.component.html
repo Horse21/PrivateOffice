@@ -1,15 +1,27 @@
 <div class="c-profile">
 	<mat-card class="c-profile_card">
 		<div class="c-profile_card-header">
-			<h2 class="po_title">Sergey Strovatikov</h2>
+			<h2 class="po_title">{{profileData.firstName}} {{profileData.lastName}}</h2>
 			<mat-card-header>
-				<img mat-card-avatar [src]="profileData.pictureUrl" alt=""/>
+				<div mat-card-avatar>
+					<mat-progress-spinner
+						*ngIf="avatarPreloaderVisibility"
+						[color]="'primary'"
+						[mode]="'indeterminate'"
+						[strokeWidth]="'4'"
+						[diameter]="'160'">
+					</mat-progress-spinner>
+					<img [src]="profileData.pictureUrl"
+						 [class.__is-loaded]="!avatarPreloaderVisibility"
+						 (load)="hideAvatarPreloader()"
+						 alt=""/>
+				</div>
 				<div class="c-profile_meta-data-box">
 					<div class="row">
 						<div class="col-12 col-xl-6">
 							<div class="row no-gutters c-profile_meta-data">
-								<div class="col-6">Date of registration</div>
-								<div class="col-6"><b>{{profileData.registrationDate}}</b></div>
+								<div class="col-6">Date of registration:</div>
+								<div class="col-6"><b>{{profileData.registrationDate | date: 'MM.dd.yyyy HH:mm'}}</b></div>
 							</div>
 						</div>
 						<div class="col-12 col-xl-6">
@@ -20,13 +32,13 @@
 						</div>
 						<div class="col-12 col-xl-6">
 							<div class="row no-gutters c-profile_meta-data">
-								<div class="col-6">Date of update</div>
-								<div class="col-6"><b>{{profileData.updateDate}}</b></div>
+								<div class="col-6">Date of update:</div>
+								<div class="col-6"><b>{{profileData.updateDate | date: 'MM.dd.yyyy HH:mm'}}</b></div>
 							</div>
 						</div>
 						<div class="col-12 col-xl-6">
 							<div class="row no-gutters c-profile_meta-data">
-								<div class="col-6 col-xl-4">Status</div>
+								<div class="col-6 col-xl-4">Status:</div>
 								<div class="col-6 col-xl-8">{{profileData.status}}<b></b></div>
 							</div>
 						</div>

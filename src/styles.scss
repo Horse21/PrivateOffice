@@ -17,6 +17,16 @@ $po-gray: #323232;
 	color: $h21-fg-base;
 	flex: none;
 }
+.po_login-box {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: 1000;
+}
 .c-h21-two-month-calendar_field .mat-form-field,
 .po_form-field {
 	color: $h21-fg-ashen-blue;
@@ -46,8 +56,7 @@ $po-gray: #323232;
 		}
 	}
 }
-
-.page_splash-screen {
+.po_splash-screen {
 	position: absolute;
 	height: 100%;
 	width: calc(100% - 400px);
@@ -68,25 +77,60 @@ $po-gray: #323232;
 		opacity: .6;
 	}
 }
-.page_login-form-box {
+.po_login-form-box {
 	position: absolute;
 	width: 400px;
 	height: 100%;
-	top: 0;
+	bottom: 0;
 	right: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background: white;
+}
+.po_login-form {
+	position: absolute;
+	width: 100%;
+	height: 360px;
+	top: 50%;
+	left: 0;
+	margin: -180px 0 0 0;
 	padding: 48px;
 	box-sizing: border-box;
 }
+.po_login-form-fileds {
+	margin: 28px 0;
+	.mat-form-field {
+		margin: 4px 0;
+	}
+}
+.po_logo {
+	display: block;
+	margin: 0 auto;
+}
 
-.page_login-form {
-	position: absolute;
-	width: 100%;
-	height: 340px;
-	top: 50%;
-	left: 0;
-	margin: -170px 0 0 0;
-	padding: 48px;
+.po_login-error.mat-snack-bar-container {
+	background: #e26666;
+	color: white;
+	width: 400px !important;
+	min-width: 400px !important;
+	max-width: 400px !important;
+	margin: 0;
+	padding: 24px 24px 48px 24px;
 	box-sizing: border-box;
+	font-weight: 300;
+	position: relative;
+
+	> span {
+		line-height: 40px;
+	}
+	.mat-icon-button {
+		float: right;
+		margin-right: -8px;
+	}
+}
+
+.page_content {
+	height: 100%;
 }
 
 // Board component style
@@ -168,6 +212,34 @@ $po-gray: #323232;
 			border: 1px solid $po-blue;
 			background: white;
 			overflow: hidden;
+			position: relative;
+			.mat-progress-spinner {
+				circle {
+					stroke: $po-blue;
+				}
+				margin: -1px;
+			}
+			img {
+				position: absolute;
+				height: 100%;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				opacity: 0;
+				transition: opacity 250ms;
+				&.__is-loaded {
+					opacity: 1;
+				}
+			}
+			//img {
+			//	width: 100%;
+			//	height: 100%;
+			//	opacity: 0;
+			//	transition: opacity 250ms;
+			//	&.__is-loaded {
+			//		opacity: 1;
+			//	}
+			//}
 		}
 		.mat-card-header-text {
 			display: none;

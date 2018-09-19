@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ISuportPhones } from "../../dto/i-suport-phones";
+import {Component} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {ISuportPhones} from "../../dto/i-suport-phones";
 
 @Component({
 	selector: 'support',
