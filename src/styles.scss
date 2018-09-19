@@ -17,7 +17,7 @@ $po-gray: #323232;
 	color: $h21-fg-base;
 	flex: none;
 }
-
+.c-h21-two-month-calendar_field .mat-form-field,
 .po_form-field {
 	color: $h21-fg-ashen-blue;
 	width: 100%;
@@ -186,12 +186,6 @@ $po-gray: #323232;
 		}
 	}
 }
-
-//@include media-breakpoint-up(xl) {
-//	.c-h21-profile-user-card_meta-data-box {
-//		margin-left: 80px;
-//	}
-//}
 
 // Support component style
 .c-support {

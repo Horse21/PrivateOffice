@@ -1,15 +1,8 @@
 import {Component, EventEmitter} from '@angular/core';
 import {MatIconRegistry} from '@angular/material';
-import {AuthData} from '../../dto/auth-data';
 import {Router} from "@angular/router";
 import {trigger, state, transition, animate, style} from "@angular/animations";
-import {
-	H21HotelSearchResultComponent,
-	IHotelSearchOptions,
-	INotifyItem,
-	ISidebarNavTab,
-	PermissionService
-} from 'h21-be-ui-kit';
+import {ISidebarNavTab} from 'h21-be-ui-kit';
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
@@ -44,47 +37,21 @@ export class AppComponent {
 	animationState: 'void' | 'enter' | 'leave' = 'enter';
 	animationStateChanged = new EventEmitter<AnimationEvent>();
 
-	title = 'Private Office 1.0';
-	username: string;
-	private permissionService: PermissionService;
-
-	constructor(permissionService: PermissionService,
-				private _router: Router) {
-		this.permissionService = permissionService;
-		if (this.permissionService.isAuth()) {
-			this.username = this.permissionService.getUsername();
-		}
-	}
-
-	prototypeAuth(data: any): void {
-		var authData: AuthData = <AuthData> {
-			name: data.name,
-			roles: data.roles,
-			claims: data.claims
-		};
-		localStorage.setItem("authData", JSON.stringify(authData));
-		location.reload();
-	}
-
-	logout(): void {
-		localStorage.setItem("authData", null);
-		location.reload();
-	}
-
-
+	title: string = 'Private Office 1.0';
+	userName: string = '';
+	userPicture: string = '';
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
 	isLogin: boolean =  true;
 
-	ngOnInit() {
-
+	constructor(private _router: Router) {
+		this.userName = 'John Doe';
+		this.userPicture = 'https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png';
 	}
 
 	sidebarNavAction(tab: ISidebarNavTab): void {
 		this.sidebarNavActiveTab = tab.name;
-		// this._router.navigateByUrl(`./${tab.url}`);
-		// console.log(`./${tab.url}`);
 	}
 
 	isRoute(route: string) {
