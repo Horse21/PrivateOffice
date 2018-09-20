@@ -1,5 +1,9 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
+import {HttpClientService} from "h21-be-ui-kit";
+import {environment} from "../../../environments/environment";
+import {HttpHeaders} from "@angular/common/http";
+import {CookieService} from "ngx-cookie";
 
 @Component({
 	selector: 'trip-request',
@@ -15,7 +19,7 @@ export class TripRequestComponent {
 
 	title = 'Trip request';
 
-	constructor() {
+	constructor(private http: HttpClientService, private _cookieService: CookieService) {
 
 	}
 
@@ -25,5 +29,24 @@ export class TripRequestComponent {
 
 	changeDepartureDate($event) {
 		this.departureDate = $event;
+	}
+
+	submit() {
+		let form = new FormData();
+		form.append("userName", this.getCookie("userName"));
+		form.append("password", this.getCookie("password"));
+
+		let headers = new HttpHeaders();
+		headers.set("Content-Type", "application/x-www-form-urlencoded");
+		headers.set("Accept", "application/json");
+
+		this.http.post<string>(`${environment.ssoUri}OutSideAuth`, form, {
+			responseType: 'json',
+			headers: headers
+		}).subscribe(x => window.location.href = `https://horse21pro.com/Home/Login?authkey=${x}`)
+	}
+
+	private getCookie(key: string) {
+		return this._cookieService.get(key);
 	}
 }
