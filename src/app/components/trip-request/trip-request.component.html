@@ -3,8 +3,14 @@
 
 	<div class="c-trip-request_form-wrapper">
 		<mat-form-field class="po_form-field">
-			<input type="text" matInput placeholder="Name traveler" [formControl]="travelerNameControl" required />
-				<mat-error *ngIf="travelerNameControl.hasError('required')">You must enter a value</mat-error>
+			<input type="text" matInput placeholder="First name traveler" [formControl]="travelerFirstNameControl"
+				   required/>
+			<mat-error *ngIf="travelerFirstNameControl.hasError('required')">You must enter a value</mat-error>
+		</mat-form-field>
+		<mat-form-field class="po_form-field">
+			<input type="text" matInput placeholder="Last name traveler" [formControl]="travelerLastNameControl"
+				   required/>
+			<mat-error *ngIf="travelerLastNameControl.hasError('required')">You must enter a value</mat-error>
 		</mat-form-field>
 
 		<mat-form-field class="po_form-field">

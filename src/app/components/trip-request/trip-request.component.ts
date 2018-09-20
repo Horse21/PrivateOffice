@@ -12,7 +12,8 @@ import {CookieService} from "ngx-cookie";
 
 export class TripRequestComponent {
 
-	travelerNameControl = new FormControl('', [Validators.required]);
+	travelerFirstNameControl = new FormControl('', [Validators.required]);
+	travelerLastNameControl = new FormControl('', [Validators.required]);
 	destinationControl = new FormControl('', [Validators.required]);
 	arrivalDate: Date;
 	departureDate: Date;
