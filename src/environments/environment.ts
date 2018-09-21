@@ -7,5 +7,6 @@ import {IEnvironment} from './environment.interface';
 
 export const environment: IEnvironment = {
 	production: false,
-	ssoUri: "https://horse21pro.com/api/"
+	ssoUri: "https://horse21pro.com/api/",
+	apiUri: "http://localhost:5000/api/"
 };

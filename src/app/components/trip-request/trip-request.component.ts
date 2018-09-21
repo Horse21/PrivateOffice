@@ -1,8 +1,7 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {environment} from "../../../environments/environment";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {CookieService} from "ngx-cookie";
+import {Dictionary} from "../../types/string-dictionary";
+import {OldHotelsAuthService} from "../../services/old-hotels-auth.service";
 
 @Component({
 	selector: 'trip-request',
@@ -18,7 +17,7 @@ export class TripRequestComponent {
 
 	title = 'Trip request';
 
-	constructor(private http: HttpClient, private _cookieService: CookieService) {
+	constructor(private oldHotelsAuth: OldHotelsAuthService) {
 
 	}
 
@@ -31,27 +30,17 @@ export class TripRequestComponent {
 	}
 
 	submit() {
-		let form = new HttpParams()
-			.set("userName", this.getCookie("userName"))
-			.set("password", this.getCookie("password"))
-			.set("Firstname", this.travelerFirstNameControl.value)
-			.set("Lastname", this.travelerLastNameControl.value)
-			.set("Destination", this.destinationControl.value)
-			.set("ArrivalDate", this.arrivalDate.toJSON())
-			.set("DepartureDate", this.departureDate.toJSON());
+		let fields: Dictionary<string> = {};
+		fields["Firstname"] = this.travelerFirstNameControl.value;
+		fields["Lastname"] = this.travelerLastNameControl.value;
+		fields["Destination"] = this.destinationControl.value;
+		fields["ArrivalDate"] = this.getDateOrDefault(this.arrivalDate);
+		fields["DepartureDate"] = this.getDateOrDefault(this.departureDate);
 
-		const headers = new HttpHeaders()
-			.append("Content-Type", "application/x-www-form-urlencoded")
-			.append('Accept', 'application/json')
-			.append('Host', 'https://horse21pro.com');
-
-		this.http.post<string>(`${environment.ssoUri}OutSideAuth`, form.toString(), {
-			headers,
-			observe: 'response'
-		}).subscribe(x => window.location.href = `https://horse21pro.com/Home/Login?authkey=${x}`)
+		this.oldHotelsAuth.auth(fields);
 	}
 
-	private getCookie(key: string) {
-		return this._cookieService.get(key);
+	private getDateOrDefault(date: Date): string {
+		return date !== undefined ? date.toJSON() : '';
 	}
 }
