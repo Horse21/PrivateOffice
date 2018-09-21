@@ -1,32 +1,28 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {StringDictionary} from "../types/string-dictionary";
+import {Dictionary} from "../types/string-dictionary";
+import {HttpClientService} from "h21-be-ui-kit";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class OldHotelsAuthService {
 
-	constructor(private http: HttpClient, private _cookieService: CookieService) {
+	constructor(private http: HttpClientService, private _cookieService: CookieService) {
 	}
 
-	public auth(fields: StringDictionary) {
+	public auth(fields: Dictionary<string>) {
 		let form = new URLSearchParams();
 		form.set("userName", this.getCookie("userName"));
 		form.set("password", this.getCookie("password"));
+
 		for (let field in fields) {
 			form.append(field, fields[field]);
 		}
-		const headers = new HttpHeaders()
-			.append('Content-Type', 'application/x-www-form-urlencoded');
-		//.append('Access-Control-Allow-Origin', '*');
 
-		this.http.post<string>(`${environment.ssoUri}OutSideAuth`, form.toString(), {
-			headers,
-			observe: 'response'
-		}).subscribe(x => window.open(`https://horse21pro.com/Home/Login?authkey=${x}`, '_self'));
+		this.http.post<string>(`${environment.apiUri}OldHotels/Auth`, form.toString())
+			.subscribe(x => window.open(x, '_self'));
 	}
 
 	private getCookie(key: string) {

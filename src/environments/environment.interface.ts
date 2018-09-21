@@ -1,4 +1,5 @@
 export interface IEnvironment {
-  production: boolean;
+	production: boolean;
 	ssoUri: string;
+	apiUri: string;
 }

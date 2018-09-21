@@ -1,1 +1,1 @@
-export type StringDictionary = { [key: string]: string };
+export type Dictionary<TValue> = { [key: string]: TValue };

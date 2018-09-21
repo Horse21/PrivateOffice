@@ -1,5 +1,5 @@
 import {Component} from "@angular/core"
-import {Router} from "@angular/router";
+import {OldHotelsAuthService} from "../../services/old-hotels-auth.service";
 
 @Component({
 	selector: 'board',
@@ -7,7 +7,11 @@ import {Router} from "@angular/router";
 })
 
 export class BoardComponent {
-	constructor(private _router: Router,) {
+	constructor(private oldHotelsAuth: OldHotelsAuthService) {
 
+	}
+
+	redirectToHotels() {
+		this.oldHotelsAuth.auth({});
 	}
 }

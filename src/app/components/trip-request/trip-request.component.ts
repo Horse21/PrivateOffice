@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {StringDictionary} from "../../types/string-dictionary";
+import {Dictionary} from "../../types/string-dictionary";
 import {OldHotelsAuthService} from "../../services/old-hotels-auth.service";
 
 @Component({
@@ -30,13 +30,17 @@ export class TripRequestComponent {
 	}
 
 	submit() {
-		let fields: StringDictionary = {};
+		let fields: Dictionary<string> = {};
 		fields["Firstname"] = this.travelerFirstNameControl.value;
 		fields["Lastname"] = this.travelerLastNameControl.value;
 		fields["Destination"] = this.destinationControl.value;
-		fields["ArrivalDate"] = this.arrivalDate.toJSON();
-		fields["DepartureDate"] = this.departureDate.toJSON();
+		fields["ArrivalDate"] = this.getDateOrDefault(this.arrivalDate);
+		fields["DepartureDate"] = this.getDateOrDefault(this.departureDate);
 
 		this.oldHotelsAuth.auth(fields);
+	}
+
+	private getDateOrDefault(date: Date): string {
+		return date !== undefined ? date.toJSON() : '';
 	}
 }
