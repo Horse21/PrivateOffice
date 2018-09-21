@@ -1,8 +1,7 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {HttpClientService} from "h21-be-ui-kit";
 import {environment} from "../../../environments/environment";
-import {HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie";
 
 @Component({
@@ -11,7 +10,6 @@ import {CookieService} from "ngx-cookie";
 })
 
 export class TripRequestComponent {
-
 	travelerFirstNameControl = new FormControl('', [Validators.required]);
 	travelerLastNameControl = new FormControl('', [Validators.required]);
 	destinationControl = new FormControl('', [Validators.required]);
@@ -20,7 +18,7 @@ export class TripRequestComponent {
 
 	title = 'Trip request';
 
-	constructor(private http: HttpClientService, private _cookieService: CookieService) {
+	constructor(private http: HttpClient, private _cookieService: CookieService) {
 
 	}
 
@@ -33,23 +31,23 @@ export class TripRequestComponent {
 	}
 
 	submit() {
-		let form = new FormData();
-		form.append("userName", this.getCookie("userName"));
-		form.append("password", this.getCookie("password"));
+		let form = new HttpParams()
+			.set("userName", this.getCookie("userName"))
+			.set("password", this.getCookie("password"))
+			.set("Firstname", this.travelerFirstNameControl.value)
+			.set("Lastname", this.travelerLastNameControl.value)
+			.set("Destination", this.destinationControl.value)
+			.set("ArrivalDate", this.arrivalDate.toJSON())
+			.set("DepartureDate", this.departureDate.toJSON());
 
-		form.append("Firstname", this.travelerFirstNameControl.value);
-		form.append("Lastname", this.travelerLastNameControl.value);
-		form.append("Destination", this.destinationControl.value);
-		form.append("ArrivalDate", this.arrivalDate.toJSON());
-		form.append("DepartureDate", this.departureDate.toJSON());
+		const headers = new HttpHeaders()
+			.append("Content-Type", "application/x-www-form-urlencoded")
+			.append('Accept', 'application/json')
+			.append('Host', 'https://horse21pro.com');
 
-		let headers = new HttpHeaders();
-		headers.set("Content-Type", "application/x-www-form-urlencoded");
-		headers.set("Accept", "application/json");
-
-		this.http.post<string>(`${environment.ssoUri}OutSideAuth`, form, {
-			responseType: 'json',
-			headers: headers
+		this.http.post<string>(`${environment.ssoUri}OutSideAuth`, form.toString(), {
+			headers,
+			observe: 'response'
 		}).subscribe(x => window.location.href = `https://horse21pro.com/Home/Login?authkey=${x}`)
 	}
 

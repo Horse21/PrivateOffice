@@ -21,8 +21,8 @@
 		<h21-two-month-calendar [fromDateText]="'Arrival'"
 								[toDateText]="'Departure'"
 								[suffixText]="'date'"
-								[selectedFromDate]="arrivalDate"
-								[selectedToDate]="departureDate"
+								[(selectedFromDate)]="arrivalDate"
+								[(selectedToDate)]="departureDate"
 								(onSelectedFromDateChanged)="changeArrivalDate($event);"
 								(onSelectedToDateChanged)="changeDepartureDate($event);"></h21-two-month-calendar>
 

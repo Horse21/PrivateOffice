@@ -1,14 +1,10 @@
-import {
-	Component,
-	AfterContentChecked,
-	ViewChild,
-	TemplateRef
-} from '@angular/core';
-import {MatIconRegistry, MatSnackBar, MatSnackBarRef, SimpleSnackBar} from '@angular/material';
+import {AfterContentChecked, Component, TemplateRef, ViewChild} from '@angular/core';
+import {MatIconRegistry, MatSnackBar, MatSnackBarRef} from '@angular/material';
 import {Router} from "@angular/router";
-import {trigger, state, transition, animate, style} from "@angular/animations";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ISidebarNavTab} from 'h21-be-ui-kit';
 import {FormControl, Validators} from "@angular/forms";
+import {CookieService} from "ngx-cookie";
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
@@ -65,7 +61,7 @@ export class AppComponent implements AfterContentChecked {
 	@ViewChild('loginErrorTpl') snackBarTpl: TemplateRef<any>;
 
 
-	constructor(private _router: Router, private _snackBar: MatSnackBar) {
+	constructor(private _router: Router, private _snackBar: MatSnackBar, private _cookieService: CookieService) {
 		this.userName = 'John Doe';
 		this.userPicture = 'https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png';
 
@@ -99,18 +95,11 @@ export class AppComponent implements AfterContentChecked {
 	}
 
 	login(): void {
-		if (this.loginControl.value == '1' && this.passwordControl.value == '1') {
-			this.isLogin = true;
-			this.animationState = 'leave';
-			this.closeSnackBar();
-		} else {
-			this.snackBarRef = this._snackBar.openFromTemplate(this.snackBarTpl, {
-				duration: 600000,
-				horizontalPosition: 'right',
-				verticalPosition: 'bottom',
-				panelClass: 'po_login-error',
-			});
-		}
+		this._cookieService.put("userName", this.loginControl.value);
+		this._cookieService.put("password", this.passwordControl.value);
+		this.isLogin = true;
+		this.animationState = 'leave';
+		this.closeSnackBar();
 	}
 
 	closeSnackBar() {
