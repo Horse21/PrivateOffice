@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, TemplateRef, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatIconRegistry, MatSnackBar, MatSnackBarRef} from '@angular/material';
 import {Router} from "@angular/router";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -48,7 +48,7 @@ const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	]
 })
 
-export class AppComponent implements AfterContentChecked {
+export class AppComponent implements AfterContentChecked, OnInit {
 
 	animationState: 'void' | 'enter' | 'leave' = 'enter';
 
@@ -105,18 +105,17 @@ export class AppComponent implements AfterContentChecked {
 	}
 
 	login(): void {
-		this._cookieService.put("userName", this.loginControl.value);
-		this._cookieService.put("password", this.passwordControl.value);
 		this._auth.auth(this.loginControl.value, this.passwordControl.value)
 			.subscribe(
 				x => {
+					localStorage.setItem('password', this.passwordControl.value);
 					localStorage.setItem("access_token", x);
+					this.isLogin = true;
+					this.animationState = 'leave';
+					this.closeSnackBar();
 				},
 				err => console.log(err)
 			);
-		this.isLogin = true;
-		this.animationState = 'leave';
-		this.closeSnackBar();
 	}
 
 	closeSnackBar() {
@@ -131,5 +130,17 @@ export class AppComponent implements AfterContentChecked {
 
 	onAnimationDone() {
 		this.loginFormVisibility = !this.isLogin;
+	}
+
+	ngOnInit(): void {
+		this.loginFormVisibility = !this._auth.isAuthenticated();
+		this.isLogin = this._auth.isAuthenticated();
+		this.onAnimationStart();
+		this.onAnimationDone();
+		if (this.isLogin) {
+			const userData = this._auth.getUserData();
+			this.userName = `${userData.firstName} ${userData.lastName}`;
+			this.userPicture = userData.imageLink;
+		}
 	}
 }

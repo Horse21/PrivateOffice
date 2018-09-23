@@ -65,7 +65,7 @@ export function tokenGetter() {
 				config: {
 					tokenGetter: () => localStorage.getItem('access_token'),
 					whitelistedDomains: [environment.apiUri],
-					throwNoTokenError: true,
+					throwNoTokenError: false,
 					skipWhenExpired: true,
 					headerName: 'Authorization',
 					authScheme: 'Bearer'

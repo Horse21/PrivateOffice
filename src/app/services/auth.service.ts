@@ -3,6 +3,7 @@ import {HttpClientService} from "h21-be-ui-kit";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {IUserData} from "../dto/i-user-data";
 
 @Injectable({
 	providedIn: 'root'
@@ -25,10 +26,14 @@ export class AuthService {
 		const isExpired = this.jwt.isTokenExpired(token);
 		// return a boolean reflecting
 		// whether or not the token is expired
-		return !isExpired;
+		return !isExpired && token !== null;
 	}
 
 	public getToken(): string {
-		return localStorage.getItem('access_token')
+		return localStorage.getItem('access_token');
+	}
+
+	public getUserData(): IUserData {
+		return this.jwt.decodeToken(this.getToken());
 	}
 }
