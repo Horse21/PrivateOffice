@@ -5,10 +5,18 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ISidebarNavTab} from 'h21-be-ui-kit';
 import {FormControl, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie";
+import {AuthService} from "../../services/auth.service";
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
-	{name: 'trip_request', label: 'Trip request', icon: 'find_in_page', type: 'link', url: 'trip_request', disabled: false },
+	{
+		name: 'trip_request',
+		label: 'Trip request',
+		icon: 'find_in_page',
+		type: 'link',
+		url: 'trip_request',
+		disabled: false
+	},
 	{name: 'profile', label: 'Profile', icon: 'person', type: 'link', url: 'profile', disabled: false},
 	{name: 'support', label: 'Support', icon: 'perm_phone_msg', type: 'link', url: 'support', disabled: false},
 ];
@@ -53,7 +61,7 @@ export class AppComponent implements AfterContentChecked {
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
-	isLogin: boolean =  false;
+	isLogin: boolean = false;
 	loginFormVisibility: boolean = true;
 	contentVisibility: boolean = false;
 	passwordVisibility: 'text' | 'password' = 'password';
@@ -61,7 +69,7 @@ export class AppComponent implements AfterContentChecked {
 	@ViewChild('loginErrorTpl') snackBarTpl: TemplateRef<any>;
 
 
-	constructor(private _router: Router, private _snackBar: MatSnackBar, private _cookieService: CookieService) {
+	constructor(private _router: Router, private _snackBar: MatSnackBar, private _cookieService: CookieService, private _auth: AuthService) {
 		this.userName = 'John Doe';
 		this.userPicture = 'https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png';
 
@@ -77,7 +85,9 @@ export class AppComponent implements AfterContentChecked {
 	}
 
 	getSidebarNavTabNameByRoute(route: string): string {
-		let index = this.sidebarNavTabs.findIndex((item) => { return route.indexOf(item.url) >= 0 });
+		let index = this.sidebarNavTabs.findIndex((item) => {
+			return route.indexOf(item.url) >= 0
+		});
 		if (index >= 0) {
 			return this.sidebarNavTabs[index].name;
 		}
@@ -97,6 +107,13 @@ export class AppComponent implements AfterContentChecked {
 	login(): void {
 		this._cookieService.put("userName", this.loginControl.value);
 		this._cookieService.put("password", this.passwordControl.value);
+		this._auth.auth(this.loginControl.value, this.passwordControl.value)
+			.subscribe(
+				x => {
+					localStorage.setItem("access_token", x);
+				},
+				err => console.log(err)
+			);
 		this.isLogin = true;
 		this.animationState = 'leave';
 		this.closeSnackBar();

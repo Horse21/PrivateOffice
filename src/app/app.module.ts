@@ -14,12 +14,15 @@ import {
 	OrderService,
 } from 'h21-be-ui-kit';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BoardComponent} from './components/board/board.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {SupportComponent} from './components/support/support.component';
 import {TripRequestComponent} from './components/trip-request/trip-request.component';
 import {CookieModule} from "ngx-cookie";
+import {JwtModule} from "@auth0/angular-jwt";
+import {environment} from "../environments/environment";
+import {TokenInterceptor} from "./interceptors/token-interceptor";
 
 const routes: Routes = [
 	{path: '', redirectTo: 'board', pathMatch: 'full'},
@@ -29,6 +32,11 @@ const routes: Routes = [
 	{path: 'support', component: SupportComponent},
 	{path: '**', redirectTo: '/'},
 ];
+
+export function tokenGetter() {
+	return localStorage.getItem('access_token');
+}
+
 
 @NgModule({
 		declarations: [
@@ -52,11 +60,26 @@ const routes: Routes = [
 			H21TopToolbarModule,
 			H21SidebarNavModule,
 			H21TwoMonthCalendarModule,
-			CookieModule.forRoot()
+			CookieModule.forRoot(),
+			JwtModule.forRoot({
+				config: {
+					tokenGetter: () => localStorage.getItem('access_token'),
+					whitelistedDomains: [environment.apiUri],
+					throwNoTokenError: true,
+					skipWhenExpired: true,
+					headerName: 'Authorization',
+					authScheme: 'Bearer'
+				}
+			})
 		],
 		providers: [
 			AppSubscriberService,
-			OrderService
+			OrderService,
+			{
+				provide: HTTP_INTERCEPTORS,
+				useClass: TokenInterceptor,
+				multi: true
+			}
 		],
 		bootstrap: [AppComponent],
 		entryComponents: []
