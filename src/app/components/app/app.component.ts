@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, TemplateRef, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatIconRegistry, MatSnackBar, MatSnackBarRef} from '@angular/material';
 import {Router} from "@angular/router";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -6,6 +6,7 @@ import {ISidebarNavTab} from 'h21-be-ui-kit';
 import {FormControl, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie";
 import {AuthService} from "../../services/auth.service";
+import {IUserData} from "../../dto/i-user-data";
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
@@ -48,7 +49,7 @@ const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	]
 })
 
-export class AppComponent implements AfterContentChecked {
+export class AppComponent implements AfterContentChecked, OnInit {
 
 	animationState: 'void' | 'enter' | 'leave' = 'enter';
 
@@ -56,8 +57,19 @@ export class AppComponent implements AfterContentChecked {
 	passwordControl = new FormControl('', [Validators.required]);
 
 	title: string = 'Private Office 1.0';
-	userName: string = '';
-	userPicture: string = '';
+	userData: IUserData;
+
+	get userName(): string {
+		return `${this.userData.firstName} ${this.userData.lastName}`
+	};
+
+	get userPicture(): string {
+		return this.userData.imageLink;
+	};
+
+	get userEmail(): string {
+		return this.userData.email;
+	}
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
@@ -70,9 +82,6 @@ export class AppComponent implements AfterContentChecked {
 
 
 	constructor(private _router: Router, private _snackBar: MatSnackBar, private _cookieService: CookieService, private _auth: AuthService) {
-		this.userName = 'John Doe';
-		this.userPicture = 'https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png';
-
 		this.isLogin = false;
 		this.loginFormVisibility = !this.isLogin;
 		this.contentVisibility = this.isLogin;
@@ -105,18 +114,17 @@ export class AppComponent implements AfterContentChecked {
 	}
 
 	login(): void {
-		this._cookieService.put("userName", this.loginControl.value);
-		this._cookieService.put("password", this.passwordControl.value);
 		this._auth.auth(this.loginControl.value, this.passwordControl.value)
 			.subscribe(
 				x => {
+					localStorage.setItem('password', this.passwordControl.value);
 					localStorage.setItem("access_token", x);
+					this.isLogin = true;
+					this.animationState = 'leave';
+					this.closeSnackBar();
 				},
 				err => console.log(err)
 			);
-		this.isLogin = true;
-		this.animationState = 'leave';
-		this.closeSnackBar();
 	}
 
 	closeSnackBar() {
@@ -131,5 +139,26 @@ export class AppComponent implements AfterContentChecked {
 
 	onAnimationDone() {
 		this.loginFormVisibility = !this.isLogin;
+	}
+
+	ngOnInit(): void {
+		this.init();
+	}
+
+	logout(): void {
+		this._auth.logout()
+			.subscribe(x => {
+				localStorage.removeItem('access_token');
+				localStorage.removeItem('password');
+				this.init();
+				this.animationState = 'enter';
+			}, error => console.log(error));
+	}
+
+	init(): void {
+		this.isLogin = this._auth.isAuthenticated();
+		this.onAnimationStart();
+		this.onAnimationDone();
+		this.userData = this._auth.getUserData();
 	}
 }

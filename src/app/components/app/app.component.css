@@ -28,3 +28,7 @@
   padding: 16px;
   box-sizing: border-box;
 }
+
+.page_header-box {
+	height: 60px !important;
+}
