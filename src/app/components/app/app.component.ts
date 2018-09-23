@@ -6,6 +6,7 @@ import {ISidebarNavTab} from 'h21-be-ui-kit';
 import {FormControl, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie";
 import {AuthService} from "../../services/auth.service";
+import {IUserData} from "../../dto/i-user-data";
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
@@ -56,8 +57,19 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	passwordControl = new FormControl('', [Validators.required]);
 
 	title: string = 'Private Office 1.0';
-	userName: string = '';
-	userPicture: string = '';
+	userData: IUserData;
+
+	get userName(): string {
+		return `${this.userData.firstName} ${this.userData.lastName}`
+	};
+
+	get userPicture(): string {
+		return this.userData.imageLink;
+	};
+
+	get userEmail(): string {
+		return this.userData.email;
+	}
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
@@ -70,9 +82,6 @@ export class AppComponent implements AfterContentChecked, OnInit {
 
 
 	constructor(private _router: Router, private _snackBar: MatSnackBar, private _cookieService: CookieService, private _auth: AuthService) {
-		this.userName = 'John Doe';
-		this.userPicture = 'https://horse21pro.com/Content/Images/Logo/9637b_13987_1173_34li5xo.png';
-
 		this.isLogin = false;
 		this.loginFormVisibility = !this.isLogin;
 		this.contentVisibility = this.isLogin;
@@ -133,14 +142,23 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.loginFormVisibility = !this._auth.isAuthenticated();
+		this.init();
+	}
+
+	logout(): void {
+		this._auth.logout()
+			.subscribe(x => {
+				localStorage.removeItem('access_token');
+				localStorage.removeItem('password');
+				this.init();
+				this.animationState = 'enter';
+			}, error => console.log(error));
+	}
+
+	init(): void {
 		this.isLogin = this._auth.isAuthenticated();
 		this.onAnimationStart();
 		this.onAnimationDone();
-		if (this.isLogin) {
-			const userData = this._auth.getUserData();
-			this.userName = `${userData.firstName} ${userData.lastName}`;
-			this.userPicture = userData.imageLink;
-		}
+		this.userData = this._auth.getUserData();
 	}
 }

@@ -43,11 +43,13 @@
 			<div class="row no-gutters page_header-box">
 				<div class="col-12 no-gutters">
 					<h21-header [username]="userName"
-								[logotypeUrl]="'./assets/img/logo.svg'"></h21-header>
-					<h21-top-toolbar [showSidenavToggle]="false"
-									 [showCart]="false"
-									 [showLanguageControl]="false"
-									 [showCurrencyControl]="false"></h21-top-toolbar>
+								[logotypeUrl]="'./assets/img/logo.svg'"
+								[userEmail]="userEmail"
+								[userAvatarUrl]="userPicture"
+								[showNotifications]="false"
+								[showServicesMenuBtn]="false"
+								(onLogout)="logout()"
+					></h21-header>
 				</div>
 			</div>
 			<div class="row no-gutters page_content-box">

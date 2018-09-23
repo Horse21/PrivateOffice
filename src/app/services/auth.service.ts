@@ -20,9 +20,13 @@ export class AuthService {
 		});
 	}
 
+	public logout(): Observable<any> {
+		return this.http.post(`${environment.apiUri}Account/Logout`, {})
+	}
+
 	public isAuthenticated(): boolean {
 		// get the token
-		const token = this.jwt.tokenGetter();
+		const token = this.getToken();
 		const isExpired = this.jwt.isTokenExpired(token);
 		// return a boolean reflecting
 		// whether or not the token is expired
@@ -30,7 +34,7 @@ export class AuthService {
 	}
 
 	public getToken(): string {
-		return localStorage.getItem('access_token');
+		return localStorage.getItem('access_token') || null;
 	}
 
 	public getUserData(): IUserData {
