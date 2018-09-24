@@ -21,6 +21,6 @@ export class OldHotelsAuthService {
 		}
 
 		this.http.post<string>(`${environment.apiUri}OldHotels/Auth`, form.toString())
-			.subscribe(x => window.open(x, '_self'));
+			.subscribe(x => window.open(x, '_blank'));
 	}
 }
