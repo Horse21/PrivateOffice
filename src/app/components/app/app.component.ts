@@ -60,16 +60,29 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	userData: IUserData;
 
 	get userName(): string {
-		return `${this.userData.firstName} ${this.userData.lastName}`
+		if (this.userData === null) {
+			return 'User Name';
+		}
+
+		return `${this.userData.firstName || ''} ${this.userData.lastName || ''}`
 	};
 
 	get userPicture(): string {
-		return this.userData.imageLink;
+		if (this.userData === null) {
+			return '';
+		}
+
+		return this.userData.imageLink || '';
 	};
 
 	get userEmail(): string {
-		return this.userData.email;
+		if (this.userData === null) {
+			return '';
+		}
+
+		return this.userData.email || '';
 	}
+
 	sidebarNavTabs: Array<ISidebarNavTab> = SIDEBAR_NAV_TABS;
 	sidebarNavDisabled: boolean = false;
 	sidebarNavActiveTab: string = '';
@@ -117,6 +130,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 		this._auth.auth(this.loginControl.value, this.passwordControl.value)
 			.subscribe(
 				x => {
+					localStorage.setItem('login', this.loginControl.value);
 					localStorage.setItem('password', this.passwordControl.value);
 					localStorage.setItem("access_token", x);
 					this.isLogin = true;
@@ -150,6 +164,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 			.subscribe(x => {
 				localStorage.removeItem('access_token');
 				localStorage.removeItem('password');
+				localStorage.removeItem('login');
 				this.init();
 				this.animationState = 'enter';
 			}, error => console.log(error));
