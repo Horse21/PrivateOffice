@@ -16,7 +16,7 @@
 			<div class="po_login-form-box"
 				 [@loginFormVisibility]="animationState">
 				<div class="po_login-form">
-					<img src="./assets/img/logo-2.svg" alt="" class="po_logo" />
+					<span class="po_login-form-title">Login Page</span> <!--<img src="./assets/img/logo-2.svg" alt="Horse21.Pro" class="po_logo" />-->
 					<div class="po_login-form-fileds">
 						<mat-form-field class="__w-100">
 							<input type="text" matInput placeholder="Login" [formControl]="loginControl">
@@ -43,7 +43,7 @@
 			<div class="row no-gutters page_header-box">
 				<div class="col-12 no-gutters">
 					<h21-header [username]="userName"
-								[logotypeUrl]="'./assets/img/logo.svg'"
+								[title]="titleText"
 								[userEmail]="userEmail"
 								[userAvatarUrl]="userPicture"
 								[showNotifications]="false"

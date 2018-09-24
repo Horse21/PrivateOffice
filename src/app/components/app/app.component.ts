@@ -25,7 +25,6 @@ const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
 	viewProviders: [MatIconRegistry],
 	animations: [
 		trigger('splashScreenVisibility', [
@@ -56,7 +55,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	loginControl = new FormControl('', [Validators.required]);
 	passwordControl = new FormControl('', [Validators.required]);
 
-	title: string = 'Private Office 1.0';
+	titleText: string = 'Profile';
 	userData: IUserData;
 
 	get userName(): string {
