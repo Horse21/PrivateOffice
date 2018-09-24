@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {Dictionary} from "../types/string-dictionary";
 import {HttpClientService} from "h21-be-ui-kit";
+import {Fields} from "../constants/fields";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,8 +14,8 @@ export class OldHotelsAuthService {
 
 	public auth(fields: Dictionary<string>) {
 		let form = new URLSearchParams();
-		form.set("userName", localStorage.getItem('login'));
-		form.set("password", localStorage.getItem("password"));
+		form.set("userName", localStorage.getItem(Fields.Login));
+		form.set("password", localStorage.getItem(Fields.Password));
 
 		for (let field in fields) {
 			form.append(field, fields[field]);

@@ -7,6 +7,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie";
 import {AuthService} from "../../services/auth.service";
 import {IUserData} from "../../dto/i-user-data";
+import {Fields} from "../../constants/fields";
 
 const SIDEBAR_NAV_TABS: Array<ISidebarNavTab> = [
 	{name: 'board', label: 'Board', icon: 'apps', type: 'link', url: 'board', disabled: false},
@@ -130,9 +131,9 @@ export class AppComponent implements AfterContentChecked, OnInit {
 		this._auth.auth(this.loginControl.value, this.passwordControl.value)
 			.subscribe(
 				x => {
-					localStorage.setItem('login', this.loginControl.value);
-					localStorage.setItem('password', this.passwordControl.value);
-					localStorage.setItem("access_token", x);
+					localStorage.setItem(Fields.Login, this.loginControl.value);
+					localStorage.setItem(Fields.Password, this.passwordControl.value);
+					localStorage.setItem(Fields.Token, x);
 					this.isLogin = true;
 					this.animationState = 'leave';
 					this.closeSnackBar();
@@ -162,9 +163,9 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	logout(): void {
 		this._auth.logout()
 			.subscribe(x => {
-				localStorage.removeItem('access_token');
-				localStorage.removeItem('password');
-				localStorage.removeItem('login');
+				localStorage.removeItem(Fields.Token);
+				localStorage.removeItem(Fields.Password);
+				localStorage.removeItem(Fields.Login);
 				this.init();
 				this.animationState = 'enter';
 			}, error => console.log(error));

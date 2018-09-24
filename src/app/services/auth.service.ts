@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {IUserData} from "../dto/i-user-data";
+import {Fields} from "../constants/fields";
 
 @Injectable({
 	providedIn: 'root'
@@ -34,7 +35,7 @@ export class AuthService {
 	}
 
 	public getToken(): string {
-		return localStorage.getItem('access_token') || null;
+		return localStorage.getItem(Fields.Token) || null;
 	}
 
 	public getUserData(): IUserData {
