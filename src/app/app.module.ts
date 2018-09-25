@@ -26,7 +26,6 @@ import {TokenInterceptor} from "./interceptors/token-interceptor";
 import {UsersImportComponent} from './components/users-import/users-import.component';
 import {AdminGuardGuard} from "./guards/admin-guard.guard";
 import {Fields} from "./constants/fields";
-import {DialogComponent} from './components/upload/dialog/dialog.component';
 import {UploadModule} from "./components/upload/upload.module";
 
 const routes: Routes = [
@@ -89,8 +88,8 @@ export function tokenGetter() {
 				multi: true
 			}
 		],
-		bootstrap: [AppComponent],
-		entryComponents: []
+	bootstrap: [AppComponent],
+	entryComponents: []
 	}
 )
 export class AppModule {

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClientService, IFileInfo} from "h21-be-ui-kit";
 import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class FileUploaderService {
 	constructor(private http: HttpClientService) {
