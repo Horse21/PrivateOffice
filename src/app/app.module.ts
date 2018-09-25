@@ -23,6 +23,11 @@ import {CookieModule} from "ngx-cookie";
 import {JwtModule} from "@auth0/angular-jwt";
 import {environment} from "../environments/environment";
 import {TokenInterceptor} from "./interceptors/token-interceptor";
+import {UsersImportComponent} from './components/users-import/users-import.component';
+import {AdminGuardGuard} from "./guards/admin-guard.guard";
+import {Fields} from "./constants/fields";
+import {DialogComponent} from './components/upload/dialog/dialog.component';
+import {UploadModule} from "./components/upload/upload.module";
 
 const routes: Routes = [
 	{path: '', redirectTo: 'board', pathMatch: 'full'},
@@ -30,11 +35,12 @@ const routes: Routes = [
 	{path: 'trip_request', component: TripRequestComponent},
 	{path: 'profile', component: ProfileComponent},
 	{path: 'support', component: SupportComponent},
+	{path: 'import', component: UsersImportComponent, canActivate: [AdminGuardGuard]},
 	{path: '**', redirectTo: '/'},
 ];
 
 export function tokenGetter() {
-	return localStorage.getItem('access_token');
+	return localStorage.getItem(Fields.Token);
 }
 
 
@@ -44,7 +50,8 @@ export function tokenGetter() {
 			BoardComponent,
 			ProfileComponent,
 			SupportComponent,
-			TripRequestComponent
+			TripRequestComponent,
+			UsersImportComponent
 		],
 		imports: [
 			BrowserModule,
@@ -61,9 +68,10 @@ export function tokenGetter() {
 			H21SidebarNavModule,
 			H21TwoMonthCalendarModule,
 			CookieModule.forRoot(),
+			UploadModule,
 			JwtModule.forRoot({
 				config: {
-					tokenGetter: () => localStorage.getItem('access_token'),
+					tokenGetter: () => localStorage.getItem(Fields.Token),
 					whitelistedDomains: [environment.apiUri],
 					throwNoTokenError: false,
 					skipWhenExpired: true,
@@ -81,8 +89,7 @@ export function tokenGetter() {
 				multi: true
 			}
 		],
-		bootstrap: [AppComponent],
-		entryComponents: []
+		bootstrap: [AppComponent]
 	}
 )
 export class AppModule {
