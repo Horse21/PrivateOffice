@@ -21,6 +21,7 @@ export class ProfileComponent {
 	}
 
 	hideAvatarPreloader(): void {
+		// todo: remove delay (setTimeout) before release
 		setTimeout(() => {
 			this.avatarPreloaderVisibility = false;
 		}, 1000);

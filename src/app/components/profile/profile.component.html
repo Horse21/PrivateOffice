@@ -9,7 +9,7 @@
 						[color]="'primary'"
 						[mode]="'indeterminate'"
 						[strokeWidth]="'4'"
-						[diameter]="'160'">
+						[diameter]="'250'">
 					</mat-progress-spinner>
 					<img [src]="profileData.pictureUrl"
 						 [class.__is-loaded]="!avatarPreloaderVisibility"
@@ -89,15 +89,12 @@
 						<span matSuffix class="po_required-suffix">*</span>
 					</mat-form-field>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-6">
 					<mat-form-field class="po_form-field">
 						<input matInput placeholder="Phone" readonly="true" [value]="profileData.phone">
 						<span matSuffix class="po_required-suffix">*</span>
 					</mat-form-field>
 				</div>
-				<div class="col-6">&nbsp;</div>
 			</div>
 		</mat-card-content>
 	</mat-card>
