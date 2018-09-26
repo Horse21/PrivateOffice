@@ -2,7 +2,7 @@ import {AfterContentChecked, Component, OnInit, TemplateRef, ViewChild} from '@a
 import {MatIconRegistry, MatSnackBar, MatSnackBarRef} from '@angular/material';
 import {Router} from "@angular/router";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ISidebarNavTab} from 'h21-be-ui-kit';
+import {ISidebarNavTab, IUserCardData} from 'h21-be-ui-kit';
 import {FormControl, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie";
 import {AuthService} from "../../services/auth.service";
@@ -90,6 +90,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	loginFormVisibility: boolean = true;
 	contentVisibility: boolean = false;
 	passwordVisibility: 'text' | 'password' = 'password';
+	userCardData: IUserCardData;
 	private snackBarRef: MatSnackBarRef<any>;
 	@ViewChild('loginErrorTpl') snackBarTpl: TemplateRef<any>;
 
@@ -175,5 +176,21 @@ export class AppComponent implements AfterContentChecked, OnInit {
 		this.onAnimationStart();
 		this.onAnimationDone();
 		this.userData = this._auth.getUserData();
+		this.userCardData = <IUserCardData> {
+			user: {
+				name: this.userName,
+				email: this.userEmail,
+				avatarUrl: this.userPicture,
+			},
+			actions: [
+				{
+					name: 	'profile',
+					label:	'My profile',
+					icon:	'person',
+					route:	'profile',
+					type:	'link'
+				}
+			]
+		};
 	}
 }
