@@ -35,6 +35,11 @@
 		"phoneNumber" : "0 800 915 006"
 	},
 	{
+		"countryCode" : "IT",
+		"flagUrl" : "./assets/flags/it.svg",
+		"phoneNumber" : "800-795-960"
+	},
+	{
 		"countryCode" : "LU",
 		"flagUrl" : "./assets/flags/lu.svg",
 		"phoneNumber" : "800 26467"
