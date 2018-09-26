@@ -1,47 +1,49 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {MatInputModule, MatNativeDateModule} from '@angular/material';
-import {AppComponent} from './components/app/app.component';
-import {RouterModule, Routes} from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppMaterialModule} from './modules/app-material.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { MatInputModule, MatNativeDateModule } from '@angular/material';
+import { AppComponent } from './components/app/app.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppMaterialModule } from './modules/app-material.module';
 import {
 	AppSubscriberService,
 	H21HeaderModule,
 	H21SidebarNavModule,
 	H21TopToolbarModule,
 	H21TwoMonthCalendarModule,
-	OrderService,
+	OrderService
 } from 'h21-be-ui-kit';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {BoardComponent} from './components/board/board.component';
-import {ProfileComponent} from './components/profile/profile.component';
-import {SupportComponent} from './components/support/support.component';
-import {TripRequestComponent} from './components/trip-request/trip-request.component';
-import {CookieModule} from "ngx-cookie";
-import {JwtModule} from "@auth0/angular-jwt";
-import {environment} from "../environments/environment";
-import {TokenInterceptor} from "./interceptors/token-interceptor";
-import {UsersImportComponent} from './components/users-import/users-import.component';
-import {AdminGuardGuard} from "./guards/admin-guard.guard";
-import {Fields} from "./constants/fields";
-import {UploadModule} from "./components/upload/upload.module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BoardComponent } from './components/board/board.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SupportComponent } from './components/support/support.component';
+import { TripRequestComponent } from './components/trip-request/trip-request.component';
+import { CookieModule } from 'ngx-cookie';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
+import { TokenInterceptor } from './interceptors/token-interceptor';
+import { UsersImportComponent } from './components/users-import/users-import.component';
+import { AdminGuardGuard } from './guards/admin-guard.guard';
+import { Fields } from './constants/fields';
+import { UploadModule } from './components/upload/upload.module';
+import { AppInsightsService, ApplicationInsightsModule } from '@markpieszak/ng-application-insights';
+import { AppInsightInterceptor } from './interceptors/app-insight-interceptor';
+import { AppInsightErrorHandler } from 'app/services/app-insight-error-handler';
 
 const routes: Routes = [
-	{path: '', redirectTo: 'board', pathMatch: 'full'},
-	{path: 'board', component: BoardComponent},
-	{path: 'trip_request', component: TripRequestComponent},
-	{path: 'profile', component: ProfileComponent},
-	{path: 'support', component: SupportComponent},
-	{path: 'import', component: UsersImportComponent, canActivate: [AdminGuardGuard]},
-	{path: '**', redirectTo: '/'},
+	{ path: '', redirectTo: 'board', pathMatch: 'full' },
+	{ path: 'board', component: BoardComponent },
+	{ path: 'trip_request', component: TripRequestComponent },
+	{ path: 'profile', component: ProfileComponent },
+	{ path: 'support', component: SupportComponent },
+	{ path: 'import', component: UsersImportComponent, canActivate: [AdminGuardGuard] },
+	{ path: '**', redirectTo: '/' }
 ];
 
 export function tokenGetter() {
 	return localStorage.getItem(Fields.Token);
 }
-
 
 @NgModule({
 		declarations: [
@@ -68,6 +70,9 @@ export function tokenGetter() {
 			H21TwoMonthCalendarModule,
 			CookieModule.forRoot(),
 			UploadModule,
+			ApplicationInsightsModule.forRoot({
+				instrumentationKeySetlater: true // <--
+			}),
 			JwtModule.forRoot({
 				config: {
 					tokenGetter: () => localStorage.getItem(Fields.Token),
@@ -86,6 +91,16 @@ export function tokenGetter() {
 				provide: HTTP_INTERCEPTORS,
 				useClass: TokenInterceptor,
 				multi: true
+			},
+			{
+				provide: HTTP_INTERCEPTORS,
+				useClass: AppInsightInterceptor,
+				multi: true
+			},
+			{
+				provide: ErrorHandler,
+				useClass: AppInsightErrorHandler,
+				multi: true
 			}
 		],
 	bootstrap: [AppComponent],
@@ -93,5 +108,11 @@ export function tokenGetter() {
 	}
 )
 export class AppModule {
-
+	constructor(private appInsightsService: AppInsightsService) {
+		appInsightsService.config = {
+			instrumentationKey: environment.AppInsightInstrumentationKey // <-- set it later sometime
+		};
+		// then make sure to initialize and start-up app insights
+		appInsightsService.init();
+	}
 }
