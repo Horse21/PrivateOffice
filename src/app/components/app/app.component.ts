@@ -60,7 +60,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	userData: IUserData;
 
 	get userName(): string {
-		if (this.userData === null) {
+		if (!this.isLogin) {
 			return 'User Name';
 		}
 
@@ -68,7 +68,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	};
 
 	get userPicture(): string {
-		if (this.userData === null) {
+		if (!this.isLogin) {
 			return '';
 		}
 
@@ -76,7 +76,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 	};
 
 	get userEmail(): string {
-		if (this.userData === null) {
+		if (!this.isLogin) {
 			return '';
 		}
 
@@ -134,7 +134,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 					localStorage.setItem(Fields.Login, this.loginControl.value);
 					localStorage.setItem(Fields.Password, this.passwordControl.value);
 					localStorage.setItem(Fields.Token, x);
-					this.isLogin = true;
+					this.init();
 					this.animationState = 'leave';
 					this.closeSnackBar();
 				},
