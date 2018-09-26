@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatInputModule, MatNativeDateModule } from '@angular/material';
 import { AppComponent } from './components/app/app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -29,7 +29,6 @@ import { Fields } from './constants/fields';
 import { UploadModule } from './components/upload/upload.module';
 import { AppInsightsService, ApplicationInsightsModule } from '@markpieszak/ng-application-insights';
 import { AppInsightInterceptor } from './interceptors/app-insight-interceptor';
-import { AppInsightErrorHandler } from 'app/services/app-insight-error-handler';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'board', pathMatch: 'full' },
@@ -95,11 +94,6 @@ export function tokenGetter() {
 			{
 				provide: HTTP_INTERCEPTORS,
 				useClass: AppInsightInterceptor,
-				multi: true
-			},
-			{
-				provide: ErrorHandler,
-				useClass: AppInsightErrorHandler,
 				multi: true
 			}
 		],

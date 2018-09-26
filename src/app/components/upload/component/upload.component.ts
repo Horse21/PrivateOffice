@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { UploadDialogComponent } from '../dialog/upload-dialog.component';
 
 @Component({
   selector: 'app-upload',
@@ -11,6 +11,6 @@ export class UploadComponent  {
 	constructor(public dialog: MatDialog) {}
 
 	public openUploadDialog() {
-		this.dialog.open(DialogComponent, { width: '50%', height: '50%' });
+		this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%' });
 	}
 }
