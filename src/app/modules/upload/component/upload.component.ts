@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { UploadDialogComponent } from '../dialog/upload-dialog.component';
+import {Component, Input} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {UploadDialogComponent} from '../dialog/upload-dialog.component';
 
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html'
+	selector: 'app-upload',
+	templateUrl: './upload.component.html'
 })
 export class UploadComponent {
 	@Input() url: string;

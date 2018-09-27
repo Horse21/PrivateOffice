@@ -1,12 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {
-	MatButtonModule,
-	MatDialogModule,
-	MatIconModule,
-	MatListModule,
-	MatProgressBarModule
-} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatIconModule, MatListModule, MatProgressBarModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UploadDialogComponent} from './dialog/upload-dialog.component';
