@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-
-const url = `${environment.apiUri}Import/Upload`;
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -12,8 +9,8 @@ export class UploadService {
 	
 	constructor(private http: HttpClient) {
 	}
-	
-	public upload(files: Set<File>): { [key: string]: Observable<number> } {
+
+	public upload(url: string, files: Set<File>): { [key: string]: Observable<number> } {
 		// this will be the our resulting map
 		const status = {};
 		
