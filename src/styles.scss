@@ -9,7 +9,6 @@ html, body {
 $po-blue: #6695E2;
 $po-gray: #323232;
 
-
 // Layout
 .po_title {
 	display: block;
@@ -19,6 +18,7 @@ $po-gray: #323232;
 	color: $h21-fg-base;
 	flex: none;
 }
+
 .po_login-box {
 	position: absolute;
 	display: block;
@@ -29,6 +29,7 @@ $po-gray: #323232;
 	overflow: hidden;
 	z-index: 1000;
 }
+
 .c-h21-two-month-calendar_field .mat-form-field,
 .po_form-field {
 	color: $h21-fg-ashen-blue;
@@ -58,6 +59,7 @@ $po-gray: #323232;
 		}
 	}
 }
+
 .po_splash-screen {
 	position: absolute;
 	height: 100%;
@@ -79,6 +81,7 @@ $po-gray: #323232;
 		opacity: .6;
 	}
 }
+
 .po_login-form-box {
 	position: absolute;
 	width: 400px;
@@ -89,6 +92,7 @@ $po-gray: #323232;
 	box-sizing: border-box;
 	background: white;
 }
+
 .po_login-form {
 	position: absolute;
 	width: 100%;
@@ -99,12 +103,14 @@ $po-gray: #323232;
 	padding: 48px;
 	box-sizing: border-box;
 }
+
 .po_login-form-fileds {
 	margin: 28px 0;
 	.mat-form-field {
 		margin: 4px 0;
 	}
 }
+
 .po_login-form-title {
 	font: 500 normal 24px/1em Roboto, Verdana;
 	display: block;
@@ -112,10 +118,12 @@ $po-gray: #323232;
 	color: $h21-fg-ashen-blue;
 	text-align: center;
 }
+
 .po_logo {
 	display: block;
 	margin: 0 auto;
 }
+
 .po_login-error.mat-snack-bar-container {
 	background: #e26666;
 	color: white;
@@ -140,9 +148,11 @@ $po-gray: #323232;
 .page_header-box {
 	height: 60px !important;
 }
+
 .page_content-box {
 	height: calc(100% - 60px);
 }
+
 .page_content {
 	height: 100%;
 }
@@ -164,7 +174,7 @@ $po-gray: #323232;
 		color: $h21-fg-ashen-blue;
 		text-align: center;
 		transition: all 120ms;
-		padding:  0 0 0 110px;
+		padding: 0 0 0 110px;
 		box-sizing: border-box;
 		white-space: nowrap;
 		overflow: hidden;

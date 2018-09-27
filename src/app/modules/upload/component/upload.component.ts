@@ -19,7 +19,7 @@ export class UploadComponent {
 			width: '50%',
 			height: '50%',
 			panelClass: 'c-upload-dialog',
-			data: { url: this.url }
+			data: {url: this.url}
 		});
 	}
 }
