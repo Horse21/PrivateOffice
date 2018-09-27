@@ -318,6 +318,65 @@ $po-gray: #323232;
 	}
 }
 
+// Upload component style
+.c-upload {
+	padding: 24px 32px;
+}
+.c-upload-dialog {
+	app-dialog {
+		height: 100%;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+	}
+	.mat-dialog-title {
+		display: flex;
+		flex: none;
+		border-bottom: 1px solid $h21-black-16-opacity;
+		padding: 0 24px 16px 24px;
+		margin: 0 -24px;
+		h2 {
+			display: block;
+			font-size: 26px;
+			font-weight: 400;
+			margin: 0;
+			color: $h21-fg-base;
+		}
+	}
+	.mat-dialog-content {
+		flex: 1;
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+	.mat-dialog-actions {
+		flex: none;
+		justify-content: flex-end;
+		margin: 0 -24px -24px -24px;
+		padding: 16px 24px;
+		border-top: 1px solid $h21-black-16-opacity;
+	}
+	.c-upload-dialog_files {
+		padding-top: 0;
+		.mat-list-item {
+			font-size: 16px;
+			color: $h21-fg-ashen-blue;
+			border-bottom: 1px solid $h21-black-16-opacity;
+			position: relative;
+			&:last-child {
+				border-bottom: none;
+			}
+			.mat-list-item-content {
+				padding: 0;
+			}
+			.mat-progress-bar {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 2px;
+			}
+		}
+	}
+}
 
 // Other
 .po_autocomplete {
