@@ -26,7 +26,7 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
 import { UsersImportComponent } from './components/users-import/users-import.component';
 import { AdminGuardGuard } from './guards/admin-guard.guard';
 import { Fields } from './constants/fields';
-import { UploadModule } from './components/upload/upload.module';
+import { UploadModule } from './modules/upload/upload.module';
 import { AppInsightsService, ApplicationInsightsModule } from '@markpieszak/ng-application-insights';
 import { AppInsightInterceptor } from './interceptors/app-insight-interceptor';
 

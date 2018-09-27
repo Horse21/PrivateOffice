@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { UploadService } from '../services/upload.service';
-import { FileDictionary } from 'app/components/upload/types/file-dictionary';
+import { FileDictionary } from 'app/modules/upload/types/file-dictionary';
 
 @Component({
 	selector: 'app-dialog',
