@@ -9,5 +9,6 @@ export const environment: IEnvironment = {
 	production: false,
 	ssoUri: "https://horse21pro.com/api/",
 	apiUri: 'http://localhost:5000/api/',
-	AppInsightInstrumentationKey: 'f52065f5-44cd-4df6-b4db-a7431f8d9b5a'
+	AppInsightInstrumentationKey: 'f52065f5-44cd-4df6-b4db-a7431f8d9b5a',
+	debounceTime: 300
 };

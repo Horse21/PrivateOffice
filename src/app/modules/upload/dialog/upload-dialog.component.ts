@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { UploadService } from '../services/upload.service';
 import { FileDictionary } from 'app/modules/upload/types/file-dictionary';
@@ -10,7 +10,8 @@ import { FileDictionary } from 'app/modules/upload/types/file-dictionary';
 	styleUrls: ['./upload-dialog.component.css']
 })
 export class UploadDialogComponent {
-	constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService) {
+	constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService,
+				@Inject(MAT_DIALOG_DATA) public options: any) {
 	}
 	
 	progress;
@@ -52,7 +53,7 @@ export class UploadDialogComponent {
 		this.uploading = true;
 		
 		// start the upload and save the progress map
-		this.progress = this.uploadService.upload(this.files);
+		this.progress = this.uploadService.upload(this.options.url, this.files);
 		
 		// convert the progress map into an array
 		let allProgressObservables = [];

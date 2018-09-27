@@ -3,5 +3,6 @@ export interface IEnvironment {
 	ssoUri: string;
 	apiUri: string;
 	
+	debounceTime: number;
 	AppInsightInstrumentationKey: string;
 }

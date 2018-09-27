@@ -29,6 +29,8 @@ import { Fields } from './constants/fields';
 import { UploadModule } from './modules/upload/upload.module';
 import { AppInsightsService, ApplicationInsightsModule } from '@markpieszak/ng-application-insights';
 import { AppInsightInterceptor } from './interceptors/app-insight-interceptor';
+import { CitiesImportComponent } from './components/cities-import/cities-import.component';
+import { ImportComponent } from './components/import/import.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'board', pathMatch: 'full' },
@@ -36,7 +38,15 @@ const routes: Routes = [
 	{ path: 'trip_request', component: TripRequestComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'support', component: SupportComponent },
-	{ path: 'import', component: UsersImportComponent, canActivate: [AdminGuardGuard] },
+	{
+		path: 'import', component: ImportComponent, canActivate: [AdminGuardGuard]
+	},
+	{
+		path: 'import/users', component: UsersImportComponent, canActivate: [AdminGuardGuard]
+	},
+	{
+		path: 'import/cities', component: CitiesImportComponent, canActivate: [AdminGuardGuard]
+	},
 	{ path: '**', redirectTo: '/' }
 ];
 
@@ -51,7 +61,9 @@ export function tokenGetter() {
 			ProfileComponent,
 			SupportComponent,
 			TripRequestComponent,
-			UsersImportComponent
+			UsersImportComponent,
+			CitiesImportComponent,
+			ImportComponent
 		],
 		imports: [
 			BrowserModule,
