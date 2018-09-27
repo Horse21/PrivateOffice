@@ -176,7 +176,7 @@ export class AppComponent implements AfterContentChecked, OnInit {
 		this.onAnimationStart();
 		this.onAnimationDone();
 		this.userData = this._auth.getUserData();
-		this.userCardData = <IUserCardData> {
+		this.userCardData = {
 			user: {
 				name: this.userName,
 				email: this.userEmail,
