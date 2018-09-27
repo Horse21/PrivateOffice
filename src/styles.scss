@@ -9,6 +9,8 @@ html, body {
 $po-blue: #6695E2;
 $po-gray: #323232;
 
+
+// Layout
 .po_title {
 	display: block;
 	font-size: 30px;
@@ -312,6 +314,37 @@ $po-gray: #323232;
 		.mat-icon {
 			margin-right: 16px;
 			color: $h21-fg-ashen-blue;
+		}
+	}
+}
+
+
+// Other
+.po_autocomplete {
+	@include mat-elevation(4);
+	.mat-option {
+		font-size: 16px;
+		color: $h21-fg-ashen-blue !important;
+		padding: 0 16px;
+		height: 36px;
+		line-height: 36px;
+		border-bottom: 1px solid $h21-black-16-opacity;
+		&:hover,
+		&:focus,
+		&.mat-active {
+			background: $h21-bg-ashen-blue-light-1;
+		}
+		.mat-option-text {
+			font-weight: 300;
+		}
+		&:last-child {
+			border-bottom: none;
+		}
+		.mat-ripple {
+			.mat-ripple-element {
+				background-color: $h21-ui-primary;
+				opacity: 0.1;
+			}
 		}
 	}
 }

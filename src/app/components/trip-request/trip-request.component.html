@@ -14,8 +14,18 @@
 		</mat-form-field>
 
 		<mat-form-field class="po_form-field">
-			<input type="text" matInput placeholder="Destination" [formControl]="destinationControl" required />
+			<input type="text" matInput required
+				   placeholder="Destination"
+				   [formControl]="destinationControl"
+				   [matAutocomplete]="destinationAutocomplete" />
 			<mat-error *ngIf="destinationControl.hasError('required')">You must enter a value</mat-error>
+			<mat-autocomplete #destinationAutocomplete="matAutocomplete" class="po_autocomplete">
+				<mat-option *ngFor="let destination of filteredDestinationList | async"
+							[value]="destination.name"
+							(onSelectionChange)="selectDestination(destination.id)">
+					{{destination.name}}
+				</mat-option>
+			</mat-autocomplete>
 		</mat-form-field>
 
 		<h21-two-month-calendar [fromDateText]="'Arrival'"
@@ -25,14 +35,6 @@
 								[(selectedToDate)]="departureDate"
 								(onSelectedFromDateChanged)="changeArrivalDate($event);"
 								(onSelectedToDateChanged)="changeDepartureDate($event);"></h21-two-month-calendar>
-
-		<!--<mat-form-field class="po_form-field">-->
-			<!--<input type="text" matInput placeholder="Arrival date" />-->
-		<!--</mat-form-field>-->
-
-		<!--<mat-form-field class="po_form-field">-->
-			<!--<input type="text" matInput placeholder="Departure date" />-->
-		<!--</mat-form-field>-->
 
 		<mat-form-field class="po_form-field">
 			<textarea matInput placeholder="Extras" rows="3"></textarea>
