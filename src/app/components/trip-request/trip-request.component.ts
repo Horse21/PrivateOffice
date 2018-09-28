@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {Dictionary} from '../../types/string-dictionary';
-import {OldHotelsAuthService} from '../../services/old-hotels-auth.service';
-import {Observable} from 'rxjs';
-import {debounceTime, map, startWith} from 'rxjs/operators';
-import {TripRequestService} from 'app/services/trip-request.service';
-import {ICity} from 'app/dto/i-city';
-import {environment} from 'environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Dictionary } from '../../types/string-dictionary';
+import { OldHotelsAuthService } from '../../services/old-hotels-auth.service';
+import { Observable } from 'rxjs';
+import { debounceTime, map, startWith } from 'rxjs/operators';
+import { TripRequestService } from 'app/services/trip-request.service';
+import { ICity } from 'app/dto/i-city';
+import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'trip-request',
@@ -54,7 +54,7 @@ export class TripRequestComponent implements OnInit {
 		let fields: Dictionary<string> = {};
 		fields['Firstname'] = this.travelerFirstNameControl.value;
 		fields['Lastname'] = this.travelerLastNameControl.value;
-		fields['Destination'] = this.destinationControl.value;
+		fields['Destination'] = this.destinationControl.value.id;
 		fields['ArrivalDate'] = this.getDateOrDefault(this.arrivalDate);
 		fields['DepartureDate'] = this.getDateOrDefault(this.departureDate);
 
@@ -82,5 +82,9 @@ export class TripRequestComponent implements OnInit {
 
 	clearDestination(): void {
 		this.destinationId = 0;
+	}
+	
+	displayFn(city?: ICity): string | undefined {
+		return city ? city.name : undefined;
 	}
 }

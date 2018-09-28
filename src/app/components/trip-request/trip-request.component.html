@@ -19,9 +19,10 @@
 				   [formControl]="destinationControl"
 				   [matAutocomplete]="destinationAutocomplete" />
 			<mat-error *ngIf="destinationControl.hasError('required')">You must enter a value</mat-error>
-			<mat-autocomplete #destinationAutocomplete="matAutocomplete" class="po_autocomplete">
+			<mat-autocomplete #destinationAutocomplete="matAutocomplete" class="po_autocomplete"
+							  [displayWith]="displayFn">
 				<mat-option *ngFor="let destination of filteredDestinationList | async"
-							[value]="destination.id"
+							[value]="destination"
 							(onSelectionChange)="selectDestination(destination.id)">
 					{{destination.name}}
 				</mat-option>
