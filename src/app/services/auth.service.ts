@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClientService} from "h21-be-ui-kit";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {IUserData} from "../dto/i-user-data";
-import {Fields} from "../constants/fields";
+import { Injectable } from '@angular/core';
+import { HttpClientService } from 'h21-be-ui-kit';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { IUserData } from '../dto/i-user-data';
+import { Fields } from '../constants/fields';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,14 +15,14 @@ export class AuthService {
 	}
 
 	public auth(login: string, password: string): Observable<any> {
-		return this.http.post(`${environment.apiUri}Account/Login`, {
+		return this.http.post(`${environment.apiUri}Account/LoginAsync`, {
 			'login': login,
 			'password': password
 		});
 	}
 
 	public logout(): Observable<any> {
-		return this.http.post(`${environment.apiUri}Account/Logout`, {})
+		return this.http.post(`${environment.apiUri}Account/LogoutAsync`, {});
 	}
 
 	public isAuthenticated(): boolean {
